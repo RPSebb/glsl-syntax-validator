@@ -1,0 +1,89 @@
+{
+  "name": "glsl-syntax-validator",
+  "displayName": "GLSL Syntax Validator",
+  "description": "Validation, Highlight et Injection de code pour GLSL",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "configuration": {
+      "title": "GLSL Syntax Validator",
+      "properties": {
+        "glsl-syntax-validator.glslangValidator": {
+          "type": "string",
+          "default": "glslangValidator",
+          "description": "Path to glslangValidator or global name."
+        },
+        "glsl-syntax-validator.codeInjectionEnable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Activate code injection.",
+          "scope": "workspace"
+        },
+        "glsl-syntax-validator.codeInjection": {
+          "type": "string",
+          "default": "",
+          "description": "Code injected before anything.",
+          "editPresentation": "multilineText"
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "glsl",
+        "extensions": [
+          ".glsl",
+          ".frag",
+          ".vert",
+          ".fs",
+          ".vs",
+          ".tesc",
+          ".tese",
+          ".geom",
+          ".comp",
+          ".mesh",
+          ".task",
+          ".rgen",
+          ".rint",
+          ".rahit",
+          ".rchit",
+          ".rmiss",
+          ".rcall",
+          ".injection"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "glsl",
+        "scopeName": "source.glsl",
+        "path": "./syntaxes/glsl.tmLanguage.json",
+        "injectTo": [],
+        "embeddedLanguages": {}
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "glsl-icons",
+        "label": "GLSL Icons",
+        "path": "./icons/fileicons.json"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/vscode": "^1.93.0",
+    "typescript": "^5.9.3"
+  }
+}

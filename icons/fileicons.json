@@ -1,0 +1,26 @@
+{
+  "iconDefinitions": {
+    "glsl-icon": {
+      "iconPath": "./glsl-icon.svg"
+    }
+  },
+  "fileExtensions": {
+    "glsl": "glsl-icon",
+    "vert": "glsl-icon",
+    "frag": "glsl-icon",
+    "fs":   "glsl-icon",
+    "vs":   "glsl-icon",
+    "geom": "glsl-icon",
+    "tesc": "glsl-icon",
+    "tese": "glsl-icon",
+    "comp": "glsl-icon",
+    "mesh": "glsl-icon",
+    "task": "glsl-icon",
+    "rgen": "glsl-icon",
+    "rint": "glsl-icon",
+    "rahit":"glsl-icon",
+    "rchit":"glsl-icon",
+    "rmiss":"glsl-icon",
+    "rcall":"glsl-icon"
+  }
+}

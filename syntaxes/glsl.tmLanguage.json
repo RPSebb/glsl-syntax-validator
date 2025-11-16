@@ -1,0 +1,152 @@
+{
+  "scopeName": "source.glsl",
+  "name": "GLSL",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#preprocessor" },
+    { "include": "#keywords" },
+    { "include": "#structs" }, 
+    { "include": "#types" },
+    { "include": "#storage" },
+    { "include": "#builtins" },
+    { "include": "#numbers" },
+    { "include": "#variables" },
+    { "include": "#functions" },
+    { "include": "#variable-usage" },
+    { "include": "#strings" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        { "name": "comment.line.double-slash.glsl", "match": "//.*$" },
+        { "name": "comment.block.glsl", "begin": "/\\*", "end": "\\*/" }
+      ]
+    },
+    "preprocessor": {
+      "patterns": [
+        {
+          "name": "meta.preprocessor.glsl",
+          "match": "^[ \\t]*#\\s*(?:version|define|undef|if|ifdef|ifndef|else|elif|endif|error|pragma|extension|line)\\b.*$"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.glsl",
+          "match": "\\b(if|else|for|while|do|switch|case|default|break|continue|return|discard)\\b"
+        },
+        {
+          "name": "keyword.other.glsl",
+          "match": "\\b(precision|highp|mediump|lowp|in|out|inout|uniform|varying|layout|centroid|flat|smooth|noperspective|patch|sample|invariant|const)\\b"
+        }
+      ]
+    },
+    "structs": {
+      "patterns": [
+        {
+          "name": "meta.struct.glsl",
+          "begin": "\\b(struct)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*\\{",
+          "beginCaptures": {
+            "1": { "name": "storage.type.glsl" },
+            "2": { "name": "entity.name.type.struct.glsl" }
+          },
+          "end": "\\}",
+          "patterns": [
+            { "include": "#comments" },
+            {
+              "match": "\\b(vec[2-4]|mat[2-4]|dvec[2-4]|bvec[2-4]|ivec[2-4]|uvec[2-4]|void|bool|int|uint|float|double|sampler[1-3]D|samplerCube|sampler2DShadow|isampler2D|usampler2D|image2D|[A-Z][A-Za-z0-9_]*)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*;",
+              "captures": {
+                "1": { "name": "storage.type.glsl" },
+                "2": { "name": "variable.other.member.glsl" }
+              }
+            }
+          ]
+        },
+        {
+          "name": "entity.name.type.struct.glsl",
+          "match": "\\b[A-Z][A-Za-z0-9_]*\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.glsl",
+          "match": "\\b(void|bool|int|uint|float|double|vec[2-4]|dvec[2-4]|bvec[2-4]|ivec[2-4]|uvec[2-4]|mat[2-4](x[2-4])?|sampler[1-3]D|samplerCube|sampler2DShadow|isampler2D|usampler2D|image2D)\\b"
+        }
+      ]
+    },
+    "storage": {
+      "patterns": [
+        {
+          "name": "storage.modifier.glsl",
+          "match": "\\b(attribute|varying|readonly|writeonly|coherent|volatile|restrict)\\b"
+        }
+      ]
+    },
+    "builtins": {
+      "patterns": [
+        {
+          "name": "support.function.glsl",
+          "match": "\\b(radians|degrees|sin|cos|tan|asin|acos|atan|pow|exp|log|exp2|log2|sqrt|inversesqrt|min|max|clamp|mix|step|smoothstep|length|distance|dot|cross|normalize|faceforward|reflect|refract|matrixCompMult|lessThan|greaterThan|lessThanEqual|greaterThanEqual|equal|notEqual|any|all|not|texture|texture2D|textureCube|textureLod|textureGrad|dFdx|dFdy|fwidth)\\b"
+        },
+        {
+          "name": "support.variable.builtin.glsl",
+          "match": "\\b(gl_Position|gl_FragColor|gl_FragCoord|gl_FrontFacing|gl_PointCoord|gl_PointSize|gl_VertexID|gl_InstanceID|gl_FragDepth)\\b"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.glsl",
+          "match": "\\b((\\d+\\.\\d*|\\.\\d+|\\d+)([eE][+-]?\\d+)?|0x[0-9A-Fa-f]+)\\b"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.glsl",
+          "match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*(?=\\()"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.glsl",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.glsl", "match": "\\\\." }
+          ]
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "begin": "\\b(void|bool|int|uint|float|double|vec[2-4]|dvec[2-4]|bvec[2-4]|ivec[2-4]|uvec[2-4]|mat[2-4](x[2-4])?|sampler[1-3]D|samplerCube|sampler2DShadow|isampler2D|usampler2D|image2D)\\b\\s+",
+          "beginCaptures": { "1": { "name": "storage.type.glsl" } },
+          "end": "(?=;)",
+          "patterns": [
+            { "name": "variable.other.readwrite.glsl", "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b" },
+            { "name": "punctuation.separator.glsl", "match": "[,=]" },
+            { "name": "punctuation.brackets.glsl",   "match": "[\\[\\]]" }
+          ]
+        }
+      ]
+    },
+    "variable-usage": {
+      "patterns": [
+        {
+          "name": "variable.other.readwrite.glsl",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
+        }
+      ]
+    }
+  },
+  "uuid": "b6f9a3f2-9a6a-4d4a-8e5a-0000glsl0001"
+}
