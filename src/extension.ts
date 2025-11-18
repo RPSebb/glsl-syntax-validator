@@ -52,6 +52,11 @@ async function validate(document: vscode.TextDocument) {
 	try {
 		const res = await runProcessWithTimeout(config.validatorPath, document.getText(), args, 2000);
 		const diagnostics = messagesToDiagnostics(res.stdout, res.stderr);
+
+		Logger.log(document.fileName);
+		Logger.log(res.stdout)
+		Logger.log(res.stderr);
+		
 		if(document.version === versionAtLaunch) {
 			diagnosticCollection.set(document.uri, diagnostics);
 		}

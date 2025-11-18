@@ -6,7 +6,7 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Run Ton bel momon",
+			"name": "Run Debug",
 			"type": "extensionHost",
 			"request": "launch",
 			"args": ["--extensionDevelopmentPath=${workspaceFolder}"],

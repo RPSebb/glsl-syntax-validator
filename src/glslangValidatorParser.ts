@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import { Logger } from './logger';
 
 function getSeverity(value: string) : vscode.DiagnosticSeverity {
 	switch(value) {

@@ -3,6 +3,10 @@
   "displayName": "GLSL Syntax Validator",
   "description": "Validation, Highlight et Injection de code pour GLSL",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RPSebb/glsl-syntax-validator.git"
+  },
   "engines": {
     "vscode": "^1.93.0"
   },
