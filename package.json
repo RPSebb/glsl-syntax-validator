@@ -1,8 +1,10 @@
 {
   "name": "glsl-syntax-validator",
   "displayName": "GLSL Syntax Validator",
+  "icon": "icons/logo1.png",
   "description": "Validation, Highlight et Injection de code pour GLSL",
   "version": "0.0.1",
+  "publisher": "rpsebb",
   "repository": {
     "type": "git",
     "url": "https://github.com/RPSebb/glsl-syntax-validator.git"
@@ -11,36 +13,50 @@
     "vscode": "^1.93.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Linters"
   ],
   "main": "./out/extension.js",
   "activationEvents": [],
   "contributes": {
-    "configuration": {
-      "title": "GLSL Syntax Validator",
-      "properties": {
-        "glsl-syntax-validator.glslangValidator": {
-          "type": "string",
-          "default": "glslangValidator",
-          "description": "Path to glslangValidator or global name."
-        },
-        "glsl-syntax-validator.codeInjectionEnable": {
-          "type": "boolean",
-          "default": false,
-          "description": "Activate code injection.",
-          "scope": "workspace"
-        },
-        "glsl-syntax-validator.codeInjection": {
-          "type": "string",
-          "default": "",
-          "description": "Code injected before anything.",
-          "editPresentation": "multilineText"
+    "configuration": 
+    [
+      {
+        "id": "glslSV",
+        "title": "GLSL Syntax Validator",
+        "properties": {
+          "glsl-syntax-validator.glslangValidator": {
+            "order": 0,
+            "type": "string",
+            "default": "glslangValidator",
+            "description": "Path to glslangValidator or global name."
+          },
+          "glsl-syntax-validator.enableCodeInjection": {
+            "order": 1,
+            "type": "boolean",
+            "default": false,
+            "description": "Enable code injection before validation."
+          },
+          "glsl-syntax-validator.codeInjectionFolder": {
+            "order": 2,
+            "type": "string",
+            "default": ".vscode",
+            "markdownDescription": "Folder containing shader source to inject. *(Requires `enableCodeInjection` to be enabled)*"
+          },
+          "glsl-syntax-validator.codeInjection": {
+            "order": 3,
+            "type": "string",
+            "default": "",
+            "markdownDescription": "Code injected before validation (fallback if no file found). *(Requires `enableCodeInjection` to be enabled)*",
+            "editPresentation": "multilineText"
+          }
         }
       }
-    },
+    ],
     "languages": [
       {
         "id": "glsl",
+        "icon": { "dark": "./icons/glsl-icon.svg", "light": "./icons/glsl-icon.svg" },
         "extensions": [
           ".glsl",
           ".frag",
@@ -71,13 +87,6 @@
         "path": "./syntaxes/glsl.tmLanguage.json",
         "injectTo": [],
         "embeddedLanguages": {}
-      }
-    ],
-    "iconThemes": [
-      {
-        "id": "glsl-icons",
-        "label": "GLSL Icons",
-        "path": "./icons/fileicons.json"
       }
     ]
   },

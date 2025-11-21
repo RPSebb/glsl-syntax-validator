@@ -3,3 +3,4 @@ transform-svg.sh
 out/
 node_modules/
 glsl-syntax-validator-0.0.1.vsix
+build/

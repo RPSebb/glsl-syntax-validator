@@ -1,12 +1,13 @@
 import path from "node:path";
 import * as vscode from 'vscode';
+import { Logger } from "./logger";
 
-export default async function getCodeInjection(filename: string) : Promise<string | null> {
+export default async function getCodeInjection(folder: string, filename: string) : Promise<string | null> {
 
     const fileList = createFileList(filename);
 
     for(const file of fileList) {
-		const content = await getContent(file);
+		const content = await getContent(folder, file);
 		if(content) { return content; }
 	}
 
@@ -27,12 +28,13 @@ function createFileList(filename: string) {
     return fileList;
 }
 
-async function getContent(filename: string) : Promise<string | null> {
+async function getContent(folder: string, filename: string) : Promise<string | null> {
     const uri = vscode.Uri.joinPath(
         vscode.workspace.workspaceFolders![0].uri,
-        '.vscode',
+        folder,
         filename
     );
+    Logger.log(uri);
     try {
         const content = await vscode.workspace.fs.readFile(uri);
         const text = Buffer.from(content).toString('utf8');

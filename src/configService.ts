@@ -14,11 +14,15 @@ export class ConfigService {
     }
 
     get codeInjectionEnable(): boolean {
-        return this.config.get<boolean>('codeInjectionEnable', false);
+        return this.config.get<boolean>('enableCodeInjection', false);
     }
 
     get codeInjectionText(): string {
-        return this.config.get<string>('codeInjection', ' ');
+        return this.config.get<string>('codeInjection', '');
+    }
+
+    get codeInjectionFolder(): string {
+        return this.config.get<string>('codeInjectionFolder', '.vscode');
     }
 
     reload() {

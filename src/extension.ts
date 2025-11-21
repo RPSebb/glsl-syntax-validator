@@ -5,6 +5,7 @@ import runProcessWithTimeout from './process';
 import { ConfigService } from './configService';
 import messagesToDiagnostics from './glslangValidatorParser';
 import { Logger } from './logger';
+import colorProvider from './colorProvider';
 
 const NAME = 'glsl-syntax-validator';
 const CHANNEL = "GLSL Syntax Validator";
@@ -18,6 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		Logger,
+		colorProvider(),
 		vscode.workspace.onDidSaveTextDocument   (document => validate(document)),
 		vscode.workspace.onDidOpenTextDocument   (document => validate(document)),
 		vscode.workspace.onDidChangeTextDocument (event    => validate(event.document)),
@@ -25,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.onDidChangeActiveTextEditor(editor   => { if(editor) { validate(editor.document); } }),
 		vscode.workspace.onDidCloseTextDocument  (document => diagnosticCollection.delete(document.uri))
 	);
-
+	
 	validateAllDocuments();
 }
 
@@ -44,7 +46,7 @@ async function validate(document: vscode.TextDocument) {
 	const args = [ "--enhanced-msgs", "--error-column", "--stdin", "-S", stage === "injection" ? "vert" : stage ];
 
 	if(stage !== "injection" && config.codeInjectionEnable) {
-		let codeInjection = (await getCodeInjection(document.fileName) ?? config.codeInjectionText)
+		let codeInjection = (await getCodeInjection(config.codeInjectionFolder, document.fileName) ?? config.codeInjectionText)
 			.replaceAll('\n', '');
 		args.push("--preamble-text", codeInjection, "-l");
 	}
